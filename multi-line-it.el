@@ -14,9 +14,9 @@
   (interactive)
   (let ((pos (point)))
     (forward-line 0)
-    (re-search-forward "[\t\ ]*" nil t)
+    (re-search-forward "[\t ]*" nil t)
     (goto-char pos)
-    (concat (match-string 0 nil) "\t")))
+    (concat (match-string 0 nil))))
 
 (defun find-opening-char ()
   (interactive)
@@ -32,6 +32,7 @@
          (multi-line char))
         ((string-equal (match-string 0 nil) ",")
          (replace-match (concat "," "\n" indent "\t"))
+		 (while (string-equal (char-to-string (char-after (point))) " ") (delete-char 1))
          (multi-line char))))
 
 (defun multi-line-it ()
@@ -41,3 +42,5 @@
     (replace-match (concat (match-string 0 nil) "\n" indent "\t"))
     (multi-line closing-char)
     (message (concat indent "a"))))
+
+(provide 'multi-line-it)
