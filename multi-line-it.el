@@ -31,7 +31,7 @@
          (find-closing-character (match-string 0 nil))
          (multi-line char))
         ((string-equal (match-string 0 nil) ",")
-         (replace-match (concat "," "\n" indent "\t"))
+         (replace-match (concat "," "\n" indent "    "))
 		 (while (string-equal (char-to-string (char-after (point))) " ") (delete-char 1))
          (multi-line char))))
 
@@ -39,7 +39,7 @@
   (interactive)
   (let ((indent (get-current-indent))
         (closing-char (get-closing-char-from-opening-char (find-opening-char))))
-    (replace-match (concat (match-string 0 nil) "\n" indent "\t"))
+    (replace-match (concat (match-string 0 nil) "\n" indent "    "))
     (multi-line closing-char)
     (message (concat indent "a"))))
 
